@@ -82,6 +82,7 @@ function loadPage() {
     document.querySelector('.js-cart-quantity').innerHTML = total;
 
   }
+updateCartQuantity();
 
 }
 
