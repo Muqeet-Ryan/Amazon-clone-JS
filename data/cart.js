@@ -4,7 +4,7 @@ export let cart = JSON.parse(localStorage.getItem('cart')) || [
   { productId: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6", quantity: 2, deliveryOptionId: '3' }
 ]; ;
 
-  function saveToStorage(){
+  export function saveToStorage(){
     localStorage.setItem('cart', JSON.stringify(cart));
   }
 
@@ -42,3 +42,50 @@ export function updateDeliveryOption(productId, deliveryOptionId){
   saveToStorage();
 
 }
+
+
+export function handleUpdate(updateLink){
+    const productId = updateLink.dataset.productId;
+    const container = updateLink.closest(".cart-item-container");
+    const quantityEl = container.querySelector(".js-quantity-label"); 
+
+    const currentQuantity = quantityEl.textContent;
+
+    quantityEl.innerHTML = `
+      <input type='number' min='1' value='${currentQuantity}' class='updating-quantity-input'>
+      <button class='save-btn' data-product-id="${productId}">save</button>
+    `;
+
+    return;
+}
+
+export function handleSave(saveButton){
+  const container = saveButton.closest(".cart-item-container");
+    const productId = saveButton.dataset.productId;
+    const input = container.querySelector(".updating-quantity-input");
+    const newQuantity = parseInt(input.value);
+
+    const cartItem = cart.find((c) => c.productId === productId);
+
+    if (cartItem && newQuantity > 0) {
+      cartItem.quantity = newQuantity;
+      saveToStorage();
+    }
+    return;
+}
+
+ //delete
+  export function handleDelete(deleteLink){
+
+  if (deleteLink) {
+    const container = deleteLink.closest('.cart-item-container');
+    const productId = deleteLink.dataset.productId;
+
+    cart = cart.filter(c => c.productId !== productId);
+    saveToStorage();
+
+    container.remove();
+    return;
+  }
+
+  }
