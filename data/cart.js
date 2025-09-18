@@ -43,7 +43,7 @@ export function updateDeliveryOption(productId, deliveryOptionId){
 
 }
 
-
+//handlecheckoutCartUpdate
 export function handleUpdate(updateLink){
     const productId = updateLink.dataset.productId;
     const container = updateLink.closest(".cart-item-container");
@@ -58,7 +58,7 @@ export function handleUpdate(updateLink){
 
     return;
 }
-
+//save
 export function handleSave(saveButton){
   const container = saveButton.closest(".cart-item-container");
     const productId = saveButton.dataset.productId;
