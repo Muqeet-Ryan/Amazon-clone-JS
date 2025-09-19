@@ -2,10 +2,10 @@ import { products } from "../data/products.js";
 import { formatMoney } from "./utils/money.js";
 import { addToCart, cart } from "../data/cart.js";
 
-function loadPage() {
+function loadPage(productList = products) {
   let loadPageHtml = "";
 
-  products.forEach((product) => {
+  productList.forEach((product) => {
     loadPageHtml += `
         <div class="product-container js-product-container">
           <div class="product-image-container">
@@ -84,6 +84,29 @@ function loadPage() {
   }
 updateCartQuantity();
 
+
 }
 
+//search page
+
+const searchInput = document.querySelector('.js-search-bar');
+const searchBtn = document.querySelector('.js-search-button');
+
+function searchProduct(query){
+  const filtered = products.filter(p => p.name.toLowerCase().includes(query));
+  loadPage(filtered);
+}
+
+searchInput.addEventListener("input", () => {
+  const query = searchInput.value.toLowerCase();
+  searchProduct(query);
+});
+
+searchBtn.addEventListener("click", () => {
+  const query = searchInput.value.toLowerCase();
+  searchProduct(query);
+});
+
 loadPage();
+
+
