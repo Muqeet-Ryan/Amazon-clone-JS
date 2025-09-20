@@ -89,3 +89,8 @@ export function handleSave(saveButton){
   }
 
   }
+
+  export function clearCart() {
+  cart.length = 0;
+  localStorage.setItem("cart", JSON.stringify(cart));
+}
